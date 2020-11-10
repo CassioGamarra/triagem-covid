@@ -16,53 +16,42 @@ class AdministradorAtivoManager(UserManager):
     def get_queryset(self):
         return super().get_queryset().filter(tipo='ADMINISTRADOR', is_active=True)
 
-
-class ProfessorAtivoManager(UserManager):
+class EnfermeiroAtivoManager(UserManager):
     def get_queryset(self):
-        return super().get_queryset().filter(Q(tipo='PROFESSOR') | Q(tipo='ADMINISTRADOR'), is_active=True)
-    
-class SecretariaAtivoManager(UserManager):
-    def get_queryset(self):
-        return super().get_queryset().filter(tipo='SECRETARIA', is_active=True)
-
+        return super().get_queryset().filter(tipo='ENFERMEIRO', is_active=True)  
 
 class Usuario(AbstractBaseUser):
     #1 campo da tupla fica no banco de dados
     #2 campo da tupla eh mostrado para o usuario
     TIPOS_USUARIOS = (
         ('ADMINISTRADOR', 'Administrador'),
-        ('PROFESSOR', 'Professor' ),
-        ('SECRETÁRIA', 'Secretária' ),
+        ('ENFERMEIRO', 'Enfermeiro' ), 
     )
 
     USERNAME_FIELD = 'email'
 
-    tipo = models.CharField(_('Tipo do usuário *'), max_length=15, choices=TIPOS_USUARIOS, default='PROFESSOR', help_text='* Campos obrigatórios')
-    nome = models.CharField(_('Nome completo *'), max_length=100)
-    email = models.EmailField(_('Email'), unique=True, max_length=100, db_index=True)
-    matricula = models.CharField(_('Matrícula'),max_length=10, help_text="ATENÇÃO: Consulte o <a href='http://www.ufn.edu.br/agenda' target= '_blank'>AGENDA</a> para descobrir")    
     
-    curso = models.ManyToManyField('curso.Curso', verbose_name= 'Curso', null=True, blank=True, help_text='Para selecionar ou não um curso, use o mouse e a tecla CTRL')
+    email = models.EmailField(_('Email'), unique=True, max_length=100, db_index=True)  
+    nome = models.CharField(_('Nome completo *'), max_length=100)
+    nome = models.CharField(_('Celular *'), max_length=15)
+    nome = models.CharField(_('Endereço *'), max_length=100)
+    tipo = models.CharField(_('Tipo do usuário *'), max_length=15, choices=TIPOS_USUARIOS, default='ENFERMEIRO', help_text='* Campos obrigatórios') 
     
     is_active = models.BooleanField(_('Ativo'), default=False, help_text='Se ativo, o usuário tem permissão para acessar o sistema')
     slug = models.SlugField('Hash',max_length= 200,null=True,blank=True)
 
     objects = UserManager()
     administradores = AdministradorAtivoManager()
-    professores = ProfessorAtivoManager()
-    secretarias = SecretariaAtivoManager()
+    enfermeiros = EnfermeiroAtivoManager() 
 
     class Meta:
-        ordering            =   ['matricula', 'nome']
+        ordering            =   ['tipo', 'nome']
         verbose_name        =   ('usuário')
         verbose_name_plural =   ('usuários')
 
     def __str__(self):
-        return '%s - %s' % (self.matricula, self.nome)
-
-    def get_matricula(self):
-        return self.matricula
-
+        return '%s - %s' % (self.nome, self.tipo)
+        
     def has_module_perms(self, app_label):
         return True
 

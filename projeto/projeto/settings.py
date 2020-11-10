@@ -29,7 +29,7 @@ DEBUG = config('DEBUG', cast=bool)
 
 ALLOWED_HOSTS = ['localhost']
 
-AUTH_USER_MODEL = 'usuario.Usuario'
+#AUTH_USER_MODEL = 'usuario.Usuario'
 
 # Application definition
 
@@ -41,11 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bootstrap3',
-    
-    'atas',
+     
     'core',
-    'curso',
-    'usuario',
+    'usuario' 
 ]
 
 MIDDLEWARE = [

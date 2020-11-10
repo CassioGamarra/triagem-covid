@@ -21,7 +21,7 @@ class UsuarioListView(LoginRequiredMixin, ListView):
 
 class UsuarioCreateView(LoginRequiredMixin, SecretariaRequiredMixin, CreateView):
     model = Usuario
-    fields = ['tipo', 'nome', 'email', 'matricula', 'curso', 'password', 'is_active']
+    fields = ['tipo', 'nome', 'email', 'celular', 'endereco', 'password', 'is_active']
     success_url = 'usuario_list'
     
     def get_success_url(self):
@@ -31,7 +31,7 @@ class UsuarioCreateView(LoginRequiredMixin, SecretariaRequiredMixin, CreateView)
 
 class UsuarioUpdateView(LoginRequiredMixin, SecretariaRequiredMixin, UpdateView):
     model = Usuario
-    fields = ['tipo', 'nome', 'email', 'matricula', 'curso', 'is_active']
+    fields = ['tipo', 'nome', 'email', 'celular', 'endereco', 'is_active']
     success_url = 'usuario_list'
     
     def get_success_url(self):
@@ -56,24 +56,6 @@ class UsuarioDeleteView(LoginRequiredMixin, StaffRequiredMixin, DeleteView):
             messages.error(request, 'Há dependências ligadas à esse usuário, permissão negada!')
         return redirect(self.success_url)
 
-
-# class UsuarioRegisterView(CreateView):
-#     model = Usuario
-#     form_class = UsuarioRegisterForm
-#     template_name = 'usuario/usuario_register_form.html'
-
-#     def form_valid(self, form):
-#         self.object = form.save(commit=False)
-#         self.object.save()
-#         return super(UsuarioRegisterView, self).form_valid(form)
-    
-#     def get_success_url(self):
-#         message = EmailMessage('usuario/email/validacao_email.html', {'usuario': self.object},
-#                                settings.EMAIL_HOST_USER, to=[self.object.email])
-#         message.send()     
-#         return reverse('usuario_register_success')
-
-
 class UsuarioRegisterSuccessView(TemplateView):
     template_name= 'usuario/usuario_register_success.html'
 
@@ -86,5 +68,5 @@ class UsuarioRegisterActivateView(RedirectView):
         self.object.is_active = True
         self.object.save()
         login(self.request, self.object)
-        messages.success(self.request, 'Obrigado por acessar o TFG ONLINE. Esta é a sua área restrita de acompanhamento de TFG.')
-        return reverse('appprofessor_home')
+        messages.success(self.request, 'Obrigado por acessar o Sistema de Triagem do Covid-19. Esta é a sua área restrita de Triagem do Covid-19.')
+        return reverse('home')
