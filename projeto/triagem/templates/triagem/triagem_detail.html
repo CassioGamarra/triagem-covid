@@ -1,0 +1,114 @@
+{% extends 'core/base.html' %}
+{% load bootstrap3 %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block content %}
+	{% include 'triagem/includes/_barra_botoes.html' %}
+	<div class="panel panel-default">
+		<div class="panel-heading" style="background-color: #337ab7; color: #ffffff">
+			Paciente: {{ object.nome }}
+		</div>
+		<table class="table table-hover">
+			<tbody>
+				<tr>
+					<td>Código:</td>
+					<td>{{ object.codigo }}</td>
+				</tr>
+				<tr>
+					<td>Data e hora:</td>
+					<td>{{ object.data|date:'d/m/Y' }} às {{ object.hora }}</td>
+				</tr>  
+				<tr>
+					<td style="background-color: #337ab7; color: #ffffff">Dados pessoais:</td>
+					<td style="background-color: #337ab7;"> </td>
+				</tr>
+				<tr>
+					<td>Idade:</td>
+					<td>{{ object.idade }}</td>
+				</tr> 
+				<tr>
+					<td>Altura:</td>
+					<td>{{ object.altura }}</td>
+				</tr> 
+				<tr>
+					<td>Peso:</td>
+					<td>{{ object.peso }}</td>
+				</tr> 
+				<tr>
+					<td>IMC:</td>
+					<td>{{ object.imc }}</td>
+				</tr>
+				<tr>
+					<td style="background-color: #337ab7; color: #ffffff">Sintomas:</td>
+					<td style="background-color: #337ab7;"> </td>
+				</tr>
+				<tr>
+					<td>Febre:</td>
+					<td>
+						{% if object.febre %}
+							{% bootstrap_icon 'ok' size='sm' %}
+						{% else %}
+							{% bootstrap_icon 'remove' size='sm' %}
+						{% endif %}
+					</td> 
+				</tr>
+				<tr>
+					<td>Dor de Cabeça:</td>
+					<td>
+						{% if object.dor_cabeca %}
+							{% bootstrap_icon 'ok' size='sm' %}
+						{% else %}
+							{% bootstrap_icon 'remove' size='sm' %}
+						{% endif %}
+					</td>
+				</tr>
+				<tr>
+					<td>Secreção ou Espirro:</td>
+					<td>
+						{% if object.secrecao_espirro  %}
+							{% bootstrap_icon 'ok' size='sm' %}
+						{% else %}
+							{% bootstrap_icon 'remove' size='sm' %}
+						{% endif %}
+					</td>
+				</tr>
+				<tr>
+					<td>IMC:</td>
+					<td>{{ object.idade }}</td>
+				</tr>
+				<tr>
+					<td>IMC:</td>
+					<td>{{ object.idade }}</td>
+				</tr>
+				<tr>
+					<td>IMC:</td>
+					<td>{{ object.idade }}</td>
+				</tr>
+				<tr>
+					<td>IMC:</td>
+					<td>{{ object.idade }}</td>
+				</tr>
+				<tr>
+					<td>IMC:</td>
+					<td>{{ object.idade }}</td>
+				</tr>
+				<tr>
+					<td>IMC:</td>
+					<td>{{ object.idade }}</td>
+				</tr>
+				<tr>
+					<td>IMC:</td>
+					<td>{{ object.idade }}</td>
+				</tr> 
+				<tr>
+					<td style="background-color: #337ab7; color: #ffffff">Sintomas:</td>
+					<td style="background-color: #337ab7;"> </td>
+				</tr> 
+			</tbody>
+		</table>
+	</div> 
+	{% include 'triagem/includes/_barra_botoes.html' %}
+{% endblock %}
