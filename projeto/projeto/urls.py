@@ -9,7 +9,7 @@ urlpatterns = [
     url(r'', include('core.urls')),
     #url(r'curso/', include('curso.urls')),
     #url(r'atas/', include('atas.urls')),
-    #url(r'usuario/', include('usuario.urls')),
+    url(r'usuario/', include('usuario.urls')),
     url(r'^accounts/', include('django.contrib.auth.urls')),
 ]
 
