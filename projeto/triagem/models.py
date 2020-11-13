@@ -55,7 +55,7 @@ class Triagem(models.Model):
         super(Triagem, self).save(*args, **kwargs)
 
     @property
-    def get_absolute_url(self):
+    def get_update_url(self):
         return reverse('triagem_update', args=[str(self.id)])
 
     @property

@@ -28,6 +28,7 @@ class TriagemCreateView(LoginRequiredMixin,  EnfermeiroRequiredMixin, CreateView
         
 class TriagemUpdateView(LoginRequiredMixin,  EnfermeiroRequiredMixin, UpdateView):
     model = Triagem
+    template_name = 'triagem/triagem_update.html'
     fields = ['nome', 'idade', 'altura', 'peso', 'imc', 'febre', 'dor_cabeca', 'secrecao_espirro', 'dor_garganta', 'tosse_seca', 
               'dificuldade_respiratoria', 'dores_corpo', 'diarreia', 'viagem_covid', 'contato_covid', 'resultado']
     success_url = 'triagem_list'

@@ -21,9 +21,9 @@
 					<td>Data e hora:</td>
 					<td>{{ object.data|date:'d/m/Y' }} às {{ object.hora }}</td>
 				</tr>  
-				<tr>
-					<td style="background-color: #337ab7; color: #ffffff">Dados pessoais:</td>
-					<td style="background-color: #337ab7;"> </td>
+				<tr style="background-color: #337ab7; color: #ffffff">
+					<td >Dados pessoais:</td>
+					<td> </td>
 				</tr>
 				<tr>
 					<td>Idade:</td>
@@ -41,9 +41,9 @@
 					<td>IMC:</td>
 					<td>{{ object.imc }}</td>
 				</tr>
-				<tr>
-					<td style="background-color: #337ab7; color: #ffffff">Sintomas:</td>
-					<td style="background-color: #337ab7;"> </td>
+				<tr style="background-color: #337ab7; color: #ffffff">
+					<td >Sintomas:</td>
+					<td> </td>
 				</tr>
 				<tr>
 					<td>Febre:</td>
@@ -76,37 +76,104 @@
 					</td>
 				</tr>
 				<tr>
-					<td>IMC:</td>
-					<td>{{ object.idade }}</td>
+					<td>Tem dor/irritação de garganta?:</td>
+					<td>
+						{% if object.dor_garganta  %}
+							{% bootstrap_icon 'ok' size='sm' %}
+						{% else %}
+							{% bootstrap_icon 'remove' size='sm' %}
+						{% endif %}
+					</td>
 				</tr>
 				<tr>
-					<td>IMC:</td>
-					<td>{{ object.idade }}</td>
+					<td>Tem tosse seca?</td>
+					<td>
+						{% if object.tosse_seca  %}
+							{% bootstrap_icon 'ok' size='sm' %}
+						{% else %}
+							{% bootstrap_icon 'remove' size='sm' %}
+						{% endif %}
+					</td>
 				</tr>
 				<tr>
-					<td>IMC:</td>
-					<td>{{ object.idade }}</td>
+					<td>Tem dificuldade respiratória?</td>
+					<td>
+						{% if object.dificuldade_respiratoria  %}
+							{% bootstrap_icon 'ok' size='sm' %}
+						{% else %}
+							{% bootstrap_icon 'remove' size='sm' %}
+						{% endif %}
+					</td>
 				</tr>
 				<tr>
-					<td>IMC:</td>
-					<td>{{ object.idade }}</td>
+					<td>Tem dores no corpo?</td>
+					<td>
+						{% if object.dores_corpo  %}
+							{% bootstrap_icon 'ok' size='sm' %}
+						{% else %}
+							{% bootstrap_icon 'remove' size='sm' %}
+						{% endif %}
+					</td>
 				</tr>
 				<tr>
-					<td>IMC:</td>
-					<td>{{ object.idade }}</td>
+					<td>Tem diarreia?</td>
+					<td>
+						{% if object.diarreia  %}
+							{% bootstrap_icon 'ok' size='sm' %}
+						{% else %}
+							{% bootstrap_icon 'remove' size='sm' %}
+						{% endif %}
+					</td>
 				</tr>
 				<tr>
-					<td>IMC:</td>
-					<td>{{ object.idade }}</td>
+					<td>Viajou, nos últimos 14 dias, para algum local com casos confirmados de COVID-19?</td>
+					<td>
+						{% if object.viagem_covid  %}
+							{% bootstrap_icon 'ok' size='sm' %}
+						{% else %}
+							{% bootstrap_icon 'remove' size='sm' %}
+						{% endif %}
+					</td>
 				</tr>
 				<tr>
-					<td>IMC:</td>
-					<td>{{ object.idade }}</td>
-				</tr> 
-				<tr>
-					<td style="background-color: #337ab7; color: #ffffff">Sintomas:</td>
-					<td style="background-color: #337ab7;"> </td>
-				</tr> 
+					<td>Esteve em contato, nos últimos 14 dias, com um caso diagnosticado com COVID-19?</td>
+					<td>
+						{% if object.contato_covid  %}
+							{% bootstrap_icon 'ok' size='sm' %}
+						{% else %}
+							{% bootstrap_icon 'remove' size='sm' %}
+						{% endif %}
+					</td>
+				</tr>
+				{% if object.resultado >= 1 and object.resultado <= 9 %}
+					<tr style="background-color: #10a24d; color: #ffffff">
+						<td>Resultado:</td>
+						<td>
+							<p>Risco Baixo</p>
+						</td>
+					</tr>
+				{% elif object.resultado >= 10 and object.resultado <= 19 %}
+					<tr style="background-color: #f28422; color: #ffffff">
+						<td>Resultado:</td>
+						<td>
+							<p>Risco Médio</p>
+						</td>
+					</tr>
+				{% elif object.resultado >= 20 %}
+					<tr style="background-color: #eb2f30; color: #ffffff">
+						<td>Resultado:</td>
+						<td>
+							<p>Risco Alto</p>
+						</td>
+					</tr>	
+				{% else %}
+					<tr style="background-color: #337ab7; color: #ffffff">
+						<td>Resultado:</td>
+						<td>
+							<p>Não apresentou sintomas</p>
+						</td>
+					</tr>
+				{% endif %} 
 			</tbody>
 		</table>
 	</div> 

@@ -1,0 +1,125 @@
+{% extends 'core/base.html' %}
+{% load bootstrap3 %}
+
+{% block actions %}
+{% endblock %}
+
+{% block title %}
+{% bootstrap_icon 'list-alt' %} Editar Triagem
+{% endblock %}
+
+{% block content %}
+<form class="form" role="form" method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  <!-- {{ form.non_field_errors }} -->
+
+  {% for error in form.non_field_errors %}
+  {% bootstrap_alert error 'danger' %}
+  {% endfor %}
+  <!-- dizendo para o bootstrap utilizar todos os atributos definidos em views.py -->
+  {% bootstrap_field form.nome %}
+  {% bootstrap_field form.idade %}
+  {% bootstrap_field form.altura %}
+  {% bootstrap_field form.peso %}
+  {% bootstrap_field form.imc %}
+  {% bootstrap_field form.febre %}
+  {% bootstrap_field form.dor_cabeca %}
+  {% bootstrap_field form.secrecao_espirro %}
+  {% bootstrap_field form.dor_garganta %}
+  {% bootstrap_field form.tosse_seca %}
+  {% bootstrap_field form.dificuldade_respiratoria %}
+  {% bootstrap_field form.dores_corpo %}
+  {% bootstrap_field form.diarreia %}
+  {% bootstrap_field form.viagem_covid %}
+  {% bootstrap_field form.contato_covid %}
+  <a onclick="calcularResultado()" class="btn btn-info">Calcular Resultado</a>
+  {% bootstrap_field form.resultado %}
+  {% buttons submit='Gravar' %}
+  <a href="javascript:history.go(-1);" class="btn btn-info" role="button">Voltar</a>
+  {% endbuttons %}
+</form>
+<script>
+  document.getElementsByClassName('control-label').item(5).setAttribute('id', 'id_label_resultado'); //Adiciona um ID para o label do resultado
+  let resultado = document.getElementById('id_resultado');
+  let pontuacao = resultado.value;
+  let label_resultado = document.getElementById('id_label_resultado');
+  let imc = document.getElementById('id_imc');
+  /*Seta os atributos como somente leitura*/
+  imc.setAttribute('readOnly', 'true');
+  resultado.setAttribute('readOnly', 'true');
+  resultado.style.color = '#FFFFFF';
+  
+  if (pontuacao >= 1 && pontuacao <= 9) {
+    label_resultado.innerText = "Resultado: Risco Baixo";
+    resultado.style.backgroundColor = "#0ba44a";
+  } else if (pontuacao >= 10 && pontuacao <= 19) {
+    label_resultado.innerText = "Resultado: Risco Médio";
+    resultado.style.backgroundColor = "#f78222";
+  } else if (pontuacao >= 20) {
+    label_resultado.innerText = "Resultado: Risco Alto";
+    resultado.style.backgroundColor = "#ec2e30";
+  } else {
+    label_resultado.innerText = "Resultado: Sem Sintomas";
+    resultado.style.backgroundColor = "#5bc0de";
+  }
+  /*Cálculo IMC*/
+  let altura = document.getElementById('id_altura');
+  let peso = document.getElementById('id_peso');
+
+  altura.onchange = function () {
+    if (altura.value > 0 && peso.value > 0) {
+      imc.value = parseFloat((Number(peso.value) / (Number(altura.value) * Number(altura.value))).toFixed(2));
+    }
+  }
+
+  peso.onchange = function () {
+    if (altura.value > 0 && peso.value > 0) {
+      imc.value = parseFloat((Number(peso.value) / (Number(altura.value) * Number(altura.value))).toFixed(2));
+    }
+  }
+
+  /*Calculo Triagem*/
+  let febre = document.getElementById('id_febre');
+  let dor_cabeca = document.getElementById('id_dor_cabeca');
+  let secrecao_espirro = document.getElementById('id_secrecao_espirro');
+  let dor_garganta = document.getElementById('id_dor_garganta');
+  let tosse_seca = document.getElementById('id_tosse_seca');
+  let dificuldade_respiratoria = document.getElementById('id_dificuldade_respiratoria');
+  let dores_corpo = document.getElementById('id_dores_corpo');
+  let diarreia = document.getElementById('id_diarreia');
+  let viagem_covid = document.getElementById('id_viagem_covid');
+  let contato_covid = document.getElementById('id_contato_covid');
+  /*Cores dos campos*/
+
+  function calcularResultado() {
+    let pontuacao = 0;
+
+    if (febre.checked) { pontuacao = pontuacao + 5; }
+    if (dor_cabeca.checked) { pontuacao = pontuacao + 1; }
+    if (secrecao_espirro.checked) { pontuacao = pontuacao + 1; }
+    if (dor_garganta.checked) { pontuacao = pontuacao + 1; }
+    if (tosse_seca.checked) { pontuacao = pontuacao + 3; }
+    if (dificuldade_respiratoria.checked) { pontuacao = pontuacao + 10; }
+    if (dores_corpo.checked) { pontuacao = pontuacao + 1; }
+    if (diarreia.checked) { pontuacao = pontuacao + 1; }
+    if (viagem_covid.checked) { pontuacao = pontuacao + 3; }
+    if (contato_covid.checked) { pontuacao = pontuacao + 10; }
+
+    resultado.value = pontuacao;
+
+    if (pontuacao >= 1 && pontuacao <= 9) {
+      label_resultado.innerText = "Resultado: Risco Baixo";
+      resultado.style.backgroundColor = "#0ba44a";
+    } else if (pontuacao >= 10 && pontuacao <= 19) {
+      label_resultado.innerText = "Resultado: Risco Médio";
+      resultado.style.backgroundColor = "#f78222";
+    } else if (pontuacao >= 20) {
+      label_resultado.innerText = "Resultado: Risco Alto";
+      resultado.style.backgroundColor = "#ec2e30";
+    } else {
+      label_resultado.innerText = "Resultado: Sem Sintomas";
+      resultado.style.backgroundColor = "#5bc0de";
+    }
+  }  
+</script>
+{% endblock %}

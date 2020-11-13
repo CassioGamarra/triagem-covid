@@ -16,7 +16,6 @@
     {% for error in form.non_field_errors %}
       {% bootstrap_alert error 'danger' %}
     {% endfor %}
-    
     <!-- dizendo para o bootstrap utilizar todos os atributos definidos em views.py --> 
     {% bootstrap_field form.codigo %}
     {% bootstrap_field form.data %}

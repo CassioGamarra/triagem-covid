@@ -29,8 +29,24 @@
 						<td>{{ triagem.codigo }} </td> 
 						<td>{{ triagem.data|date:'d/m/Y' }}</td>
 						<td>{{ triagem.hora}}</td>
-						<td>{{ triagem.nome }}</td>
-						<td>{{ triagem.resultado }}</td> 
+						<td>{{ triagem.nome }}</td> 
+						{% if triagem.resultado >= 1 and triagem.resultado <= 9 %} 
+								<td style="background-color: #10a24d; color: #ffffff">
+									<p>Risco Baixo</p>
+								</td> 
+						{% elif triagem.resultado >= 10 and triagem.resultado <= 19 %} 
+								<td style="background-color: #f28422; color: #ffffff">
+									<p>Risco Médio</p>
+								</td> 
+						{% elif triagem.resultado >= 20 %} 
+								<td style="background-color: #eb2f30; color: #ffffff">
+									<p>Risco Alto</p>
+								</td> 
+						{% else %}
+							<td style="background-color: #337ab7; color: #ffffff">
+								<p>Não apresentou sintomas</p>
+							</td>
+						{% endif %}
 						<td class="text-center"> 
 							<span  data-toggle="tooltip"  title='Visualizar triagem'>
 								{% bootstrap_button content='' href=triagem.get_visualiza_url button_type='link' icon='eye-open' button_class='btn btn-success' size='sm' %}
@@ -38,7 +54,7 @@
 						</td>
 						<td class="text-center">
 							<span  data-toggle="tooltip"  title='Editar'>
-							{% bootstrap_button content='' href=triagem.get_absolute_url button_type='link' icon='edit' button_class='btn btn-primary' size='sm' %}
+							{% bootstrap_button content='' href=triagem.get_update_url button_type='link' icon='edit' button_class='btn btn-primary' size='sm' %}
 							</span>
 						</td>
 						<td class="text-center">

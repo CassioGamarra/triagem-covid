@@ -15,11 +15,11 @@ from .models import Usuario
 # from .forms import UsuarioRegisterForm
 
 
-class UsuarioListView(LoginRequiredMixin, ListView):
+class UsuarioListView(LoginRequiredMixin, StaffRequiredMixin,ListView):
     model = Usuario
 
 
-class UsuarioCreateView(LoginRequiredMixin, EnfermeiroRequiredMixin, CreateView):
+class UsuarioCreateView(LoginRequiredMixin, StaffRequiredMixin, CreateView):
     model = Usuario
     fields = ['tipo', 'nome', 'email', 'celular', 'endereco', 'password', 'is_active']
     success_url = 'usuario_list'
@@ -29,7 +29,7 @@ class UsuarioCreateView(LoginRequiredMixin, EnfermeiroRequiredMixin, CreateView)
         return reverse(self.success_url)
 
 
-class UsuarioUpdateView(LoginRequiredMixin, EnfermeiroRequiredMixin, UpdateView):
+class UsuarioUpdateView(LoginRequiredMixin, StaffRequiredMixin, UpdateView):
     model = Usuario
     fields = ['tipo', 'nome', 'email', 'celular', 'endereco', 'is_active']
     success_url = 'usuario_list'

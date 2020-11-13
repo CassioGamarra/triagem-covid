@@ -3,18 +3,19 @@
 {% load static %}
 
 {% block title %}
-      <img src="{% static 'core/img/logo.png' %}"
-      class="img-responsive" style="max-width: 120px;">
+       
 {% endblock %}
 
 {% block content %}
 
 {% if user.is_authenticated %}
       <center>
+            <img src="{% static 'core/img/logo.png' %}" class="img-responsive" style="max-width: 300px;">
             <h2>Sistema de Triagem - Covid19</h2>
             <h3>CaFred - Fábrica de Software</h3>
             <h4>Disciplina Tópicos Avançados em Informática I</h4>
-            <p>Sistema em Python-Django para gestão automática de atas geradas em cursos de graduação e pós-graduação da UFN.</p>
+            <p>Sistema em Python-Django para triagem de pacientes.</p>
+            <img src="{% static 'core/img/pessoas.png' %}" class="img-responsive" style="max-width: 1000px;">
 	</center>
 {% endif %}
 
