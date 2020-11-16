@@ -39,7 +39,7 @@ class TriagemUpdateView(LoginRequiredMixin,  EnfermeiroRequiredMixin, UpdateView
 
 class TriagemDeleteView(LoginRequiredMixin, StaffRequiredMixin, DeleteView):
     model = Triagem
-    success_url = 'Triagem_list'
+    success_url = 'triagem_list'
 
     def delete(self, request, *args, **kwargs):
         """
