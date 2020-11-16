@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block content %}
+	{% if user.is_staff %}
 	<div class="panel panel-default">
 	  <div class="panel-body">
 	    <a href="{% url 'usuario_create' %}" class="btn btn-md btn-primary">{% bootstrap_icon 'floppy-disk' %} Cadastrar usuário</a>
@@ -47,4 +48,20 @@
 			{% endfor %}
   		</tbody>
 	</table>
+	{% else %}
+		<table class="table table-hover">
+			<thead>
+				<th>Nome</th> 
+				<th>E-mail</th> 
+			</thead>
+			<tbody>
+				{% for usuario in object_list %}
+				<tr>
+					<td>{{ usuario.nome }}</td> 
+					<td>{{ usuario.email }}</td>  
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	{% endif %}
 {% endblock %}
